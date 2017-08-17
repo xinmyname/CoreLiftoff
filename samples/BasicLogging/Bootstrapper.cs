@@ -2,7 +2,7 @@
 
 namespace BasicLogging
 {
-    class Program
+    class Bootstrapper
     {
         static void Main(string[] args)
         {
