@@ -1,12 +1,16 @@
 ﻿using System;
+using Liftoff.Logging;
+using Microsoft.Extensions.Logging;
 
-namespace BasicLogging
+namespace SampleBasicLogging
 {
     class Bootstrapper
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ILogger log = LogFactory.GetDefaultLogger();
+
+            log.LogInformation("Hello world!");
         }
     }
 }

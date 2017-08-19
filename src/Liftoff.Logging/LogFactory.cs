@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Liftoff.Logging
 {
@@ -18,12 +19,16 @@ namespace Liftoff.Logging
 
         public static ILogger GetDefaultLogger() {
 
-            var config = new ConfigurationBuilder()
-                .AddJsonFile(LogFactoryDefaults.AppSettingsFilename())
-                .AddEnvironmentVariables()
-                .Build();
+            string appSettingsFilename = LogFactoryDefaults.AppSettingsFilename();
 
-            return new LogFactory(config).GetLogger();
+            var config = new ConfigurationBuilder();
+
+            if (File.Exists(appSettingsFilename))
+                config.AddJsonFile(appSettingsFilename);
+
+            config.AddEnvironmentVariables();
+
+            return new LogFactory(config.Build()).GetLogger();
         }
     }
 }
