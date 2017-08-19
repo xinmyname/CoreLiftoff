@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceRoot}/samples/BasicLogging/bin/Debug/netcoreapp2.0/BasicLogging.dll",
+            "program": "${workspaceRoot}/src/SampleBasicLogging/bin/Debug/netcoreapp2.0/SampleBasicLogging.dll",
             "args": [],
-            "cwd": "${workspaceRoot}/samples/BasicLogging",
+            "cwd": "${workspaceRoot}/src/SampleBasicLogging",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
             "console": "internalConsole",
             "stopAtEntry": false,
