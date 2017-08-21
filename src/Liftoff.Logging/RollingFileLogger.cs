@@ -4,11 +4,10 @@ using Microsoft.Extensions.Logging.Abstractions.Internal;
 
 namespace Liftoff.Logging {
 
-    internal class ConsoleLogger : ILogger {
+    internal class RollingFileLogger : ILogger {
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter) {
-            var message = formatter(state, exception);
-            Console.WriteLine(message);
+            throw new NotImplementedException();
         }
 
         public bool IsEnabled(LogLevel logLevel) {

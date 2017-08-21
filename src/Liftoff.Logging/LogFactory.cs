@@ -19,6 +19,8 @@ namespace Liftoff.Logging
 
         public static ILogger GetDefaultLogger() {
 
+            System.Reflection.Assembly.GetCallingAssembly()
+
             string appSettingsFilename = LogFactoryDefaults.AppSettingsFilename();
 
             var config = new ConfigurationBuilder();
