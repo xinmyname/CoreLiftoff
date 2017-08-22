@@ -1,14 +1,20 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.IO;
+using System.Reflection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using System.IO;
+using Liftoff.Config;
 
-namespace Liftoff.Logging
-{
+namespace Liftoff.Logging {
+
     public class LogFactory {
 
         private readonly ILoggerFactory _loggerFactory;
 
         public LogFactory(IConfigurationRoot config) {
+
+            string appName = config["AppName"];
+            string company = config["Company"];
+
             _loggerFactory = new LoggerFactory();
             _loggerFactory.AddDefaultProviders(config);
         }
@@ -19,8 +25,6 @@ namespace Liftoff.Logging
 
         public static ILogger GetDefaultLogger() {
 
-            System.Reflection.Assembly.GetCallingAssembly()
-
             string appSettingsFilename = LogFactoryDefaults.AppSettingsFilename();
 
             var config = new ConfigurationBuilder();
@@ -28,6 +32,7 @@ namespace Liftoff.Logging
             if (File.Exists(appSettingsFilename))
                 config.AddJsonFile(appSettingsFilename);
 
+            config.AddCallingAssemblyAttributes(System.Reflection.Assembly.GetCallingAssembly());
             config.AddEnvironmentVariables();
 
             return new LogFactory(config.Build()).GetLogger();

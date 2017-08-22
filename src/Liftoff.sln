@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleBasicLogging", "Sampl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liftoff.Logging", "Liftoff.Logging\Liftoff.Logging.csproj", "{0EBFD238-1B46-440E-82C6-79634A7B549D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liftoff.Config", "Liftoff.Config\Liftoff.Config.csproj", "{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{0EBFD238-1B46-440E-82C6-79634A7B549D}.Release|x64.Build.0 = Release|x64
 		{0EBFD238-1B46-440E-82C6-79634A7B549D}.Release|x86.ActiveCfg = Release|x86
 		{0EBFD238-1B46-440E-82C6-79634A7B549D}.Release|x86.Build.0 = Release|x86
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Debug|x64.ActiveCfg = Debug|x64
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Debug|x64.Build.0 = Debug|x64
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Debug|x86.ActiveCfg = Debug|x86
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Debug|x86.Build.0 = Debug|x86
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Release|x64.ActiveCfg = Release|x64
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Release|x64.Build.0 = Release|x64
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Release|x86.ActiveCfg = Release|x86
+		{E135CC74-0885-4D74-95CC-D9BE3CF9D51C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

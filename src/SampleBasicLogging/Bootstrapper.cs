@@ -10,8 +10,6 @@ namespace SampleBasicLogging {
 
             ILogger log = LogFactory.GetDefaultLogger();
 
-            var asmAttrs = typeof(Bootstrapper).Assembly.GetCustomAttributes(true);
-
             log.LogInformation("Hello world!");
         }
     }
