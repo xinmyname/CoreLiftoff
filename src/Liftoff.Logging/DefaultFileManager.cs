@@ -8,6 +8,8 @@ namespace Liftoff.Logging {
         void WriteLine(string path, string text);
         void Move(string sourcePath, string destinationPath);
         void Delete(string path);        
+        bool Exists(string path);
+        DateTime GetLastWriteDate(string path);
     }
 
     public class DefaultFileManager : IManageFiles {
@@ -18,6 +20,7 @@ namespace Liftoff.Logging {
         }
 
         public void WriteLine(string path, string text) {
+
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
 
@@ -42,6 +45,15 @@ namespace Liftoff.Logging {
         public void Delete(string path) {
             File.Delete(path);
         }
-        
+
+        public bool Exists(string path) {
+            return File.Exists(path);
+        }      
+
+        public DateTime GetLastWriteDate(string path) {          
+
+            DateTime lastWriteTime = File.GetLastWriteTime(path);
+            return new DateTime(lastWriteTime.Year, lastWriteTime.Month, lastWriteTime.Day);
+        }  
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -14,7 +16,13 @@ namespace Liftoff.Logging
 
         public ILogger CreateLogger(string categoryName) {
 
-            string appDataFolder = _config["ALLUSERSPROFILE"];
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Library/Logs";
+
             string companyName = _config["Assembly:Company"] ?? "Company";
             string productName = _config["Assembly:Product"] ?? "Product";
             string appName = _config["Assembly:Name"] ?? "App";

@@ -8,6 +8,7 @@ namespace Liftoff.Logging
         public static ILoggerFactory AddDefaultProviders(this ILoggerFactory loggerFactory, IConfigurationRoot config) {
 
             loggerFactory.AddProvider(new ConsoleLoggerProvider());
+            loggerFactory.AddProvider(new RollingFileProvider(config));
 
             return loggerFactory;
         }
