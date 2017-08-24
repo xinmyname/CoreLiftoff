@@ -9,6 +9,7 @@ namespace Liftoff.Logging
 
             loggerFactory.AddProvider(new ConsoleLoggerProvider());
             loggerFactory.AddProvider(new RollingFileProvider(config));
+            loggerFactory.AddProvider(new SmtpProvider(config));
 
             return loggerFactory;
         }
