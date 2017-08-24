@@ -3,6 +3,9 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions.Internal;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Liftoff.Tests")]
 
 namespace Liftoff.Logging
 {

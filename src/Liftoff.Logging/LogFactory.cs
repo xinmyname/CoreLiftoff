@@ -11,10 +11,7 @@ namespace Liftoff.Logging {
         private readonly ILoggerFactory _loggerFactory;
 
         public LogFactory(IConfigurationRoot config) {
-
-            string appName = config["AppName"];
-            string company = config["Company"];
-
+            
             _loggerFactory = new LoggerFactory();
             _loggerFactory.AddDefaultProviders(config);
         }
