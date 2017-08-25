@@ -26,11 +26,15 @@ namespace Liftoff.Logging {
             if (logLevel != LogLevel.Critical)
                 return;
 
+            string bodyText = (exception != null)
+                ? $"{formatter(state,exception)}\n\n{exception.StackTrace}"
+                : formatter(state,exception);
+
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(_options.From));
             message.To.AddRange(_options.Recipients.Select(r => new MailboxAddress(r)));
             message.Subject = $"Critical Error in {_options.Source} on {_options.ComputerName}";
-            message.Body = new TextPart("plain") { Text = formatter(state, exception) };
+            message.Body = new TextPart("plain") { Text = bodyText };
 
             _mailTransport.Connect(_options.Host);
 

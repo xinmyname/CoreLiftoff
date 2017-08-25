@@ -10,8 +10,12 @@ namespace SampleBasicLogging {
 
             ILogger log = LogFactory.GetDefaultLogger();
 
-            log.Info("Hello world!");
-            log.Critical("VERY BAD!");
+            try {
+                log.Info("Hello world!");
+                Activator.CreateInstance(typeof(Activator));
+            } catch(Exception ex) {
+                log.Critical(ex);
+            }
         }
     }
 }
