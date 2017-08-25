@@ -11,6 +11,7 @@ namespace SampleBasicLogging {
             ILogger log = LogFactory.GetDefaultLogger();
 
             log.LogInformation("Hello world!");
+            log.LogCritical("VERY BAD!");
         }
     }
 }

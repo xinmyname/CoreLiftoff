@@ -20,9 +20,9 @@ namespace Liftoff.Config {
             
             Data = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-            Data["Assembly:Company"] = (_assembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
-            Data["Assembly:Product"] = (_assembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute)?.Product;
-            Data["Assembly:Name"] = _assembly.GetName().Name;        
+            Data["assembly:company"] = (_assembly.GetCustomAttribute(typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company ?? "Unknown";
+            Data["assembly:product"] = (_assembly.GetCustomAttribute(typeof(AssemblyProductAttribute)) as AssemblyProductAttribute)?.Product ?? "Unknown";
+            Data["assembly:name"] = _assembly.GetName().Name;        
         }
     }
 }

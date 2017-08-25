@@ -23,9 +23,9 @@ namespace Liftoff.Logging
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Library/Logs";
 
-            string companyName = _config["Assembly:Company"] ?? "Company";
-            string productName = _config["Assembly:Product"] ?? "Product";
-            string appName = _config["Assembly:Name"] ?? "App";
+            string companyName = _config["assembly:company"];
+            string productName = _config["assembly:product"];
+            string appName = _config["assembly:name"];
             
             string logFilePath = Path.Combine(appDataFolder, companyName);
             logFilePath = Path.Combine(logFilePath, productName);
@@ -39,7 +39,6 @@ namespace Liftoff.Logging
             return new RollingFileLogger(DefaultTimeKeeper.Instance, DefaultFileManager.Instance, options);
         }
 
-        // This code added to correctly implement the disposable pattern.
         public void Dispose() {
         }
     }
