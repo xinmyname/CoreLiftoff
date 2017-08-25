@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions.Internal;
 using MailKit.Net.Smtp;
 using MimeKit;
+using MailKit;
 
 [assembly: InternalsVisibleTo("Liftoff.Tests")]
 
@@ -12,9 +13,11 @@ namespace Liftoff.Logging {
 
     internal class SmtpLogger : ILogger {
 
+        private readonly IMailTransport _mailTransport;
         private readonly SmtpOptions _options;
 
-        public SmtpLogger(SmtpOptions options) {
+        public SmtpLogger(IMailTransport mailTransport, SmtpOptions options) {
+            _mailTransport = mailTransport;
             _options = options;
         }
 
@@ -29,16 +32,13 @@ namespace Liftoff.Logging {
             message.Subject = $"Critical Error in {_options.Source} on {_options.ComputerName}";
             message.Body = new TextPart("plain") { Text = formatter(state, exception) };
 
-            using (var client = new SmtpClient()) {
+            _mailTransport.Connect(_options.Host);
 
-                client.Connect(_options.Host);
+            if (_options.UserName != null && _options.Password != null)
+                _mailTransport.Authenticate(_options.UserName, _options.Password);
 
-                if (_options.UserName != null && _options.Password != null)
-                    client.Authenticate(_options.UserName, _options.Password);
-
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            _mailTransport.Send(message);
+            _mailTransport.Disconnect(true);
         }
 
         public bool IsEnabled(LogLevel logLevel) {
