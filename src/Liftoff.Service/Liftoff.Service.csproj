@@ -13,6 +13,12 @@
     <RepositoryUrl>https://github.com/xinmyname/CoreLiftoff</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(OS)'=='Windows_NT'">
+    <DefineConstants>SERVICE_PLATFORM_WINDOWS</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>SERVICE_PLATFORM_WINDOWS</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>

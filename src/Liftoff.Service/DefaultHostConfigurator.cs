@@ -4,16 +4,25 @@ namespace Liftoff.Service
 {
     public class DefaultHostConfigurator : HostConfigurator { 
 
+        public HostConfiguration Configuration { get; private set; }
+
+        public DefaultHostConfigurator() {
+            Configuration = new HostConfiguration();
+        }
+
         public HostConfigurator SetDescription(string description) {
-            throw new NotImplementedException();
+            Configuration.Description = description;
+            return this;
         }
 
         public HostConfigurator SetDisplayName(string displayName) {
-            throw new NotImplementedException();
+            Configuration.DisplayName = displayName;
+            return this;
         }
 
         public HostConfigurator SetServiceName(string serviceName) {
-            throw new NotImplementedException();
+            Configuration.ServiceName = serviceName;
+            return this;
         }
     }
 }
