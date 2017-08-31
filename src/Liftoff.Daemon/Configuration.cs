@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Liftoff.Service {
+namespace Liftoff.Daemon {
 
     internal class Configuration {
 

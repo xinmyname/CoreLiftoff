@@ -1,7 +1,7 @@
 using System;
 
-namespace Liftoff.Service
-{
+namespace Liftoff.Daemon {
+    
     internal class Account { 
 
         public string UserName { get; set; }
@@ -16,7 +16,7 @@ namespace Liftoff.Service
         }
     }
 
-#if SERVICE_PLATFORM_WINDOWS
+#if DAEMON_PLATFORM_WINDOWS
     internal class WindowsAccount : Account {
 
         private static readonly Lazy<Account> _localSystem = new Lazy<Account>(() => new WindowsAccount());

@@ -1,9 +1,9 @@
 ﻿using System;
 using Liftoff.Logging;
-using Liftoff.Service;
+using Liftoff.Daemon;
 using Microsoft.Extensions.Logging;
 
-namespace SampleService {
+namespace SampleWindowsService {
 
     public class PlatformService {
 

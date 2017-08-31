@@ -1,7 +1,14 @@
 using System;
 
-namespace Liftoff.Service
-{
+namespace Liftoff.Daemon {
+    
+    public interface IConfigureHosts {
+
+        IConfigureHosts SetDescription(string description);
+        IConfigureHosts SetDisplayName(string displayName);
+        IConfigureHosts SetServiceName(string serviceName);
+    }
+
     internal class HostConfigurator : IConfigureHosts { 
 
         public Configuration Configuration { get; private set; }

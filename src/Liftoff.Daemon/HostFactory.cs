@@ -1,7 +1,7 @@
 using System;
 
-namespace Liftoff.Service
-{
+namespace Liftoff.Daemon {
+    
     public static class HostFactory {
 
         public static void Run(Action<IConfigureHosts> callback) {

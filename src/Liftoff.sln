@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liftoff.Config", "Liftoff.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liftoff.Tests", "Liftoff.Tests\Liftoff.Tests.csproj", "{45B1CEFC-E490-4A6B-BD62-52725BD8CAB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liftoff.Service", "Liftoff.Service\Liftoff.Service.csproj", "{A8DF0C8E-589B-4763-B59C-6DFAAED2958C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liftoff.Daemon", "Liftoff.Daemon\Liftoff.Daemon.csproj", "{A8DF0C8E-589B-4763-B59C-6DFAAED2958C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService", "SampleService\SampleService.csproj", "{66BBA925-404A-48B7-A0DD-51A0C7556D0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWindowsService", "SampleWindowsService\SampleWindowsService.csproj", "{66BBA925-404A-48B7-A0DD-51A0C7556D0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
