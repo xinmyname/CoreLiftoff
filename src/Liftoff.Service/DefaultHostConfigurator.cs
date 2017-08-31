@@ -4,10 +4,10 @@ namespace Liftoff.Service
 {
     public class DefaultHostConfigurator : HostConfigurator { 
 
-        public HostConfiguration Configuration { get; private set; }
+        public ServiceConfiguration Configuration { get; private set; }
 
         public DefaultHostConfigurator() {
-            Configuration = new HostConfiguration();
+            Configuration = new ServiceConfiguration();
         }
 
         public HostConfigurator SetDescription(string description) {

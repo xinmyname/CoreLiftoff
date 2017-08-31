@@ -2,7 +2,7 @@ namespace Liftoff.Service {
 
     public interface HostConfigurator {
 
-        HostConfiguration Configuration { get; }
+        ServiceConfiguration Configuration { get; }
 
         HostConfigurator SetDescription(string description);
         HostConfigurator SetDisplayName(string displayName);

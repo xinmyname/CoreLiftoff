@@ -26,6 +26,8 @@ namespace SampleService {
 
         static void Main(string[] args) {
 
+            Console.WriteLine("I'm sure everything is fine.");
+
             HostFactory.Run(x => {
                 x.Service<PlatformService>(s => {
                     ILogger log = LogFactory.GetDefaultLogger();

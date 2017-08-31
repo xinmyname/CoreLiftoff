@@ -12,7 +12,6 @@ namespace SampleBasicLogging {
 
             try {
                 log.Info("Hello world!");
-                Activator.CreateInstance(typeof(Activator));
             } catch(Exception ex) {
                 log.Critical(ex);
             }
