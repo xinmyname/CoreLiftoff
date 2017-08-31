@@ -4,10 +4,10 @@ namespace Liftoff.Service
 {
     public static class HostFactory {
 
-        public static void Run(Action<HostConfigurator> callback) {
-            var configurator = new DefaultHostConfigurator();
+        public static void Run(Action<IConfigureHosts> callback) {
+            var configurator = new HostConfigurator();
             callback(configurator);
-            ServiceConfiguration configuration = configurator.Configuration;
+            Configuration configuration = configurator.Configuration;
         }
     }
 }

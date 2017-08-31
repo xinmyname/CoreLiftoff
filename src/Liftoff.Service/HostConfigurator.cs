@@ -1,11 +1,28 @@
-namespace Liftoff.Service {
+using System;
 
-    public interface HostConfigurator {
+namespace Liftoff.Service
+{
+    internal class HostConfigurator : IConfigureHosts { 
 
-        ServiceConfiguration Configuration { get; }
+        public Configuration Configuration { get; private set; }
 
-        HostConfigurator SetDescription(string description);
-        HostConfigurator SetDisplayName(string displayName);
-        HostConfigurator SetServiceName(string serviceName);
+        public HostConfigurator() {
+            Configuration = new Configuration();
+        }
+
+        public IConfigureHosts SetDescription(string description) {
+            Configuration.Description = description;
+            return this;
+        }
+
+        public IConfigureHosts SetDisplayName(string displayName) {
+            Configuration.DisplayName = displayName;
+            return this;
+        }
+
+        public IConfigureHosts SetServiceName(string serviceName) {
+            Configuration.ServiceName = serviceName;
+            return this;
+        }
     }
 }

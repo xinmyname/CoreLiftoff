@@ -4,8 +4,9 @@ namespace Liftoff.Service {
 
     public static class ServiceExtensions {
 
-        public static HostConfigurator Service<T>(this HostConfigurator configurator, Action<ServiceConfigurator<T>> callback) where T : class {
-            callback(new DefaultServiceConfigurator<T>(configurator.Configuration));
+        public static IConfigureHosts Service<T>(this IConfigureHosts configurator, Action<IConfigureDaemons<T>> callback) where T : class {
+            Configuration configuration = ((HostConfigurator)configurator).Configuration;
+            callback(new DaemonConfigurator<T>(configuration));
             return configurator;
         }
     }

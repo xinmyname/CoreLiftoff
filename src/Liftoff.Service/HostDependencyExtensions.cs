@@ -4,8 +4,9 @@ namespace Liftoff.Service
 {
     public static class DependencyExtensions {
         
-        public static HostConfigurator DependsOn(this HostConfigurator configurator, string name) {
-            configurator.Configuration.Dependencies.Add(name);
+        public static IConfigureHosts DependsOn(this IConfigureHosts configurator, string name) {
+            Configuration configuration = ((HostConfigurator)configurator).Configuration;
+            configuration.Dependencies.Add(name);
             return configurator;
         }
     }
