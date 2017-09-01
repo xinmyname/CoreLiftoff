@@ -9,21 +9,6 @@ namespace Liftoff.Daemon {
         IConfigureDaemons<T> WhenStopped(Action<T> stopAction);
     } 
 
-    internal interface IControlDaemons {
-    }
-
-    internal class DaemonController<T> : IControlDaemons {
-        public Action<T> StartAction { get; set; }
-        public Action<T> StopAction { get; set; }
-    }
-
-    internal interface IBuildDaemons {
-    }
-
-    internal class DaemonBuilder<T> : IBuildDaemons {
-        public Func<string,T> Factory { get; set; }
-    }
-    
     internal class DaemonConfigurator<T> : IConfigureDaemons<T> {
 
         private readonly Configuration _config;
