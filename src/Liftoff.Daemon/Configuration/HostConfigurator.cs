@@ -1,6 +1,6 @@
 using System;
 
-namespace Liftoff.Daemon {
+namespace Liftoff.Daemon.Configuration {
     
     public interface IConfigureHosts {
 
@@ -11,10 +11,10 @@ namespace Liftoff.Daemon {
 
     internal class HostConfigurator : IConfigureHosts { 
 
-        public Configuration Configuration { get; private set; }
+        public HostConfiguration Configuration { get; private set; }
 
         public HostConfigurator() {
-            Configuration = new Configuration();
+            Configuration = new HostConfiguration();
         }
 
         public IConfigureHosts SetDescription(string description) {

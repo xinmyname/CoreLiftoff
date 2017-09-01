@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Liftoff.Daemon {
+namespace Liftoff.Daemon.Configuration {
 
-    internal class Configuration {
+    internal class HostConfiguration {
 
         public string Description { get; set; }
         public string DisplayName { get; set; }
@@ -13,7 +13,7 @@ namespace Liftoff.Daemon {
         public IBuildDaemons Builder { get; set; }
         public IControlDaemons Controller { get; set; }
 
-        public Configuration() {
+        public HostConfiguration() {
             Dependencies = new List<string>();
         }
     }

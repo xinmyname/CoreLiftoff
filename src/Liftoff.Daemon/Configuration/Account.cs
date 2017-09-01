@@ -1,6 +1,6 @@
 using System;
 
-namespace Liftoff.Daemon {
+namespace Liftoff.Daemon.Configuration {
     
     internal class Account { 
 

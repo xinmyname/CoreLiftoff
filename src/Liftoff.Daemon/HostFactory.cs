@@ -1,4 +1,5 @@
 using System;
+using Liftoff.Daemon.Configuration;
 
 namespace Liftoff.Daemon {
     
@@ -7,7 +8,7 @@ namespace Liftoff.Daemon {
         public static void Run(Action<IConfigureHosts> callback) {
             var configurator = new HostConfigurator();
             callback(configurator);
-            Configuration configuration = configurator.Configuration;
+            HostConfiguration configuration = configurator.Configuration;
         }
     }
 }

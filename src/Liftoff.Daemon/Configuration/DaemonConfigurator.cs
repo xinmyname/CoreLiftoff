@@ -1,6 +1,6 @@
 using System;
 
-namespace Liftoff.Daemon {
+namespace Liftoff.Daemon.Configuration {
     
     public interface IConfigureDaemons<T> {
 
@@ -11,11 +11,11 @@ namespace Liftoff.Daemon {
 
     internal class DaemonConfigurator<T> : IConfigureDaemons<T> {
 
-        private readonly Configuration _config;
+        private readonly HostConfiguration _config;
         private readonly DaemonBuilder<T> _daemonBuilder;
         private readonly DaemonController<T> _daemonController;
 
-        public DaemonConfigurator(Configuration config) {
+        public DaemonConfigurator(HostConfiguration config) {
             _daemonBuilder = new DaemonBuilder<T>();
             _daemonController = new DaemonController<T>();
 

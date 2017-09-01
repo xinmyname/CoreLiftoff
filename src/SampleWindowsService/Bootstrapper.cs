@@ -1,6 +1,7 @@
 ﻿using System;
 using Liftoff.Logging;
 using Liftoff.Daemon;
+using Liftoff.Daemon.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace SampleWindowsService {
