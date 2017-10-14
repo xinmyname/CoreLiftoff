@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceRoot}/src/SampleService/bin/Debug/netcoreapp2.0/SampleService.dll",
-            "args": [],
-            "cwd": "${workspaceRoot}/src/SampleService",
+            "program": "${workspaceRoot}/src/SampleWindowsService/bin/Debug/netcoreapp2.0/SampleWindowsService.dll",
+            "args": [ "install -username \"USA\\svcAccount\" -password:\"Its A Secret\" -servicename \"Awesome Service\" –autostart" ],
+            "cwd": "${workspaceRoot}/src/SampleWindowsService",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
             "console": "internalConsole",
             "stopAtEntry": false,

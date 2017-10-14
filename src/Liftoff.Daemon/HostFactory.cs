@@ -1,4 +1,5 @@
 using System;
+using Liftoff.Daemon.CommandLine;
 using Liftoff.Daemon.Configuration;
 
 namespace Liftoff.Daemon {
@@ -9,6 +10,9 @@ namespace Liftoff.Daemon {
             var configurator = new HostConfigurator();
             callback(configurator);
             HostConfiguration configuration = configurator.Configuration;
+            
+            CommandLineElements elements = CommandLineParser.Parse(Environment.GetCommandLineArgs());
+            
         }
     }
 }
