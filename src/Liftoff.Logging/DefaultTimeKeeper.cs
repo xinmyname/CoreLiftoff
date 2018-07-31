@@ -8,7 +8,8 @@ namespace Liftoff.Logging {
 
     public class DefaultTimeKeeper : IKeepTime {
         
-        public static readonly DefaultTimeKeeper Instance = new DefaultTimeKeeper();
+        private static readonly Lazy<IKeepTime> InternalInstance = new Lazy<IKeepTime>(() => new DefaultTimeKeeper());
+        public static IKeepTime Instance => InternalInstance.Value;
 
         private DefaultTimeKeeper() {
         }

@@ -11,7 +11,7 @@ public static class ConfigurationBuilderExtensions {
         if (File.Exists(appSettingsPath))
             builder.AddJsonFile(appSettingsPath);
 
-        builder.AddCallingAssemblyAttributes(System.Reflection.Assembly.GetCallingAssembly());
+        builder.AddCallingAssemblyAttributes(System.Reflection.Assembly.GetEntryAssembly());
         builder.AddEnvironmentVariables();
 
         return builder;

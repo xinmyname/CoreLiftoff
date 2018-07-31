@@ -12,6 +12,9 @@ namespace SampleBasicLogging {
 
             try {
                 log.Info("Hello world!");
+
+                throw new ApplicationException("FATALITY!");
+
             } catch(Exception ex) {
                 log.Critical(ex);
             }

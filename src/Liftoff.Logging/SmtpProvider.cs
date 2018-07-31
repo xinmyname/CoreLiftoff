@@ -1,5 +1,4 @@
 using System;
-using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -22,17 +21,20 @@ namespace Liftoff.Logging {
                 ? productName
                 : $"{productName} - {appName}";
 
+            string criticalErrorRecipient = _config["criticalErrorRecipient"] ?? String.Empty;
+
             var options = new SmtpOptions {
                 ComputerName = Environment.MachineName,
                 Host = _config["mail:host"],
                 From = _config["mail:from"],
-                Recipients = _config["criticalErrorRecipient"].Split(';',','),
+                Recipients = criticalErrorRecipient.Split(';',','),
                 UserName = _config["mail:username"],
                 Password = _config["mail:password"],
+                UseDefaultCredentials = false,
                 Source = source
             };
 
-            return new SmtpLogger(new SmtpClient(), options);
+            return new SmtpLogger(new EmailSender(options), options);
         }
 
         public void Dispose() {

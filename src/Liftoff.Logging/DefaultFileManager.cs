@@ -14,7 +14,8 @@ namespace Liftoff.Logging {
 
     public class DefaultFileManager : IManageFiles {
 
-        public static readonly DefaultFileManager Instance = new DefaultFileManager();
+        private static readonly Lazy<IManageFiles> InternalInstance = new Lazy<IManageFiles>(() => new DefaultFileManager());
+        public static IManageFiles Instance => InternalInstance.Value;
 
         private DefaultFileManager() {
         }

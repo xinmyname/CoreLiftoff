@@ -1,23 +1,17 @@
 using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions.Internal;
-using MailKit.Net.Smtp;
-using MimeKit;
-using MailKit;
-
-[assembly: InternalsVisibleTo("Liftoff.Tests")]
+using System.Net.Mail;
 
 namespace Liftoff.Logging {
 
     internal class SmtpLogger : ILogger {
 
-        private readonly IMailTransport _mailTransport;
+        private readonly ISendEmail _mailSender;
         private readonly SmtpOptions _options;
 
-        public SmtpLogger(IMailTransport mailTransport, SmtpOptions options) {
-            _mailTransport = mailTransport;
+        public SmtpLogger(ISendEmail mailSender, SmtpOptions options) {
+            _mailSender = mailSender;
             _options = options;
         }
 
@@ -28,21 +22,18 @@ namespace Liftoff.Logging {
 
             string bodyText = (exception != null)
                 ? $"{formatter(state,exception)}\n\n{exception.StackTrace}"
-                : formatter(state,exception);
+                : formatter(state,null);
 
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(_options.From));
-            message.To.AddRange(_options.Recipients.Select(r => new MailboxAddress(r)));
-            message.Subject = $"Critical Error in {_options.Source} on {_options.ComputerName}";
-            message.Body = new TextPart("plain") { Text = bodyText };
+            var message = new MailMessage
+            {
+                From = new MailAddress(_options.From),
+                Subject = $"Critical Error in {_options.Source} on {_options.ComputerName}",
+                Body = bodyText
+            };
 
-            _mailTransport.Connect(_options.Host);
+            message.To.Add(String.Join(",", _options.Recipients));
 
-            if (_options.UserName != null && _options.Password != null)
-                _mailTransport.Authenticate(_options.UserName, _options.Password);
-
-            _mailTransport.Send(message);
-            _mailTransport.Disconnect(true);
+            _mailSender.Send(message);
         }
 
         public bool IsEnabled(LogLevel logLevel) {
