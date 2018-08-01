@@ -1,19 +1,24 @@
 using System.IO;
-using Liftoff.Config;
 using Microsoft.Extensions.Configuration;
 
-public static class ConfigurationBuilderExtensions {
+namespace Liftoff.Config
+{
+    public static class ConfigurationBuilderExtensions
+    {
 
-    public static IConfigurationBuilder AddDefaultSources(this IConfigurationBuilder builder) {
+        public static IConfigurationBuilder AddLiftoffSources(this IConfigurationBuilder builder)
+        {
 
-        string appSettingsPath = Path.Combine(Directory.GetCurrentDirectory(), ConfigurationDefaults.AppSettingsFilename());
+            string appSettingsPath =
+                Path.Combine(Directory.GetCurrentDirectory(), ConfigurationDefaults.AppSettingsFilename());
 
-        if (File.Exists(appSettingsPath))
-            builder.AddJsonFile(appSettingsPath);
+            if (File.Exists(appSettingsPath))
+                builder.AddJsonFile(appSettingsPath);
 
-        builder.AddCallingAssemblyAttributes(System.Reflection.Assembly.GetEntryAssembly());
-        builder.AddEnvironmentVariables();
+            builder.AddCallingAssemblyAttributes(System.Reflection.Assembly.GetEntryAssembly());
+            builder.AddEnvironmentVariables();
 
-        return builder;
+            return builder;
+        }
     }
 }

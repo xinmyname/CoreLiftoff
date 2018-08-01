@@ -8,9 +8,9 @@ namespace Liftoff.Logging
 {
     public class RollingFileProvider : ILoggerProvider {
 
-        private readonly IConfigurationRoot _config;
+        private readonly IConfiguration _config;
 
-        public RollingFileProvider(IConfigurationRoot config) {
+        public RollingFileProvider(IConfiguration config) {
             _config = config;
         }
 

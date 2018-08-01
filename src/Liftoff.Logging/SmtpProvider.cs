@@ -6,9 +6,9 @@ namespace Liftoff.Logging {
     
     public class SmtpProvider : ILoggerProvider {
 
-        private readonly IConfigurationRoot _config;
+        private readonly IConfiguration _config;
 
-        public SmtpProvider(IConfigurationRoot config) {
+        public SmtpProvider(IConfiguration config) {
             _config = config;
         }
 

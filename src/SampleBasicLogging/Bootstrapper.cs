@@ -1,23 +1,32 @@
 ﻿using System;
+using Liftoff.Config;
 using Liftoff.Logging;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SampleBasicLogging {
 
     class Bootstrapper {
 
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
+            var configBuilder = new ConfigurationBuilder();
+            configBuilder.AddLiftoffSources();
 
-            ILogger log = LogFactory.GetDefaultLogger();
+            var config = configBuilder.Build();
 
-            try {
-                log.Info("Hello world!");
+            var services = new ServiceCollection()
+                .AddLogging(configure => { configure.AddLiftoffProviders(config); })
+                .AddSingleton<Application>();
 
-                throw new ApplicationException("FATALITY!");
-
-            } catch(Exception ex) {
-                log.Critical(ex);
-            }
+            foreach (var service in services)
+                Console.WriteLine($"{service.ServiceType} --> {service.ImplementationType}");
+            
+            using (var provider = services.BuildServiceProvider())
+            {
+                var app = provider.GetRequiredService<Application>();
+                app.Run();
+            }            
         }
     }
 }
