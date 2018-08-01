@@ -9,13 +9,9 @@ namespace SampleBasicLogging
     {
         static void Main()
         {
-            var configBuilder = new ConfigurationBuilder();
-            configBuilder.AddLiftoffSources();
-
-            var config = configBuilder.Build();
-
             var services = new ServiceCollection()
-                .AddLogging(configure => { configure.AddLiftoffProviders(config); })
+                .AddConfiguration(configure => { configure.AddLiftoffSources(); })
+                .AddLogging(configure => { configure.AddLiftoffProviders(); })
                 .AddSingleton<Application>();
 
             using (var provider = services.BuildServiceProvider())

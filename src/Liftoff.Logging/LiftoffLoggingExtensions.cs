@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Liftoff.Logging
 {
@@ -19,6 +20,15 @@ namespace Liftoff.Logging
             builder.AddProvider(new ConsoleLoggerProvider());
             builder.AddProvider(new RollingFileProvider(config));
             builder.AddProvider(new SmtpProvider(config));
+
+            return builder;
+        }
+
+        public static ILoggingBuilder AddLiftoffProviders(this ILoggingBuilder builder)
+        {
+            builder.Services.AddSingleton<ILoggerProvider, ConsoleLoggerProvider>();
+            builder.Services.AddSingleton<ILoggerProvider, RollingFileProvider>();
+            builder.Services.AddSingleton<ILoggerProvider, SmtpProvider>();
 
             return builder;
         }

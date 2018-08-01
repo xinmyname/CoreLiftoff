@@ -1,6 +1,5 @@
 ﻿using System;
 using Liftoff.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace SampleBasicLogging
