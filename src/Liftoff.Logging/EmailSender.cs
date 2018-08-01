@@ -16,7 +16,7 @@ namespace Liftoff.Logging
         public EmailSender(SmtpOptions options)
         {
             if (options.UseDefaultCredentials)
-                _client =  new SmtpClient(options.Host) { UseDefaultCredentials = true };
+                _client = new SmtpClient(options.Host) { UseDefaultCredentials = true };
             else if (!String.IsNullOrEmpty(options.UserName) && !String.IsNullOrEmpty(options.Password))
                 _client = new SmtpClient(options.Host) { Credentials = new NetworkCredential(options.UserName, options.Password) };
             else

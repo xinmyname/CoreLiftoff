@@ -8,7 +8,6 @@ namespace Liftoff.Config
 
         public static IConfigurationBuilder AddLiftoffSources(this IConfigurationBuilder builder)
         {
-
             string appSettingsPath =
                 Path.Combine(Directory.GetCurrentDirectory(), ConfigurationDefaults.AppSettingsFilename());
 

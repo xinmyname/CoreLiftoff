@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 
-namespace Liftoff.Logging {
-
-    public class SmtpOptions {
+namespace Liftoff.Logging
+{
+    public class SmtpOptions
+    {
         public string ComputerName { get; set; }
         public string Host { get; set; }
         public string From { get; set; }

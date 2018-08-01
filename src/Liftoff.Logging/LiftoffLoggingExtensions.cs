@@ -3,11 +3,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Liftoff.Logging
 {
-    public static class LiftoffLoggingExtensions {
-
+    public static class LiftoffLoggingExtensions
+    {
         public static ILoggerFactory AddLiftoffProviders(this ILoggerFactory loggerFactory, IConfiguration config)
         {
-
             loggerFactory.AddProvider(new ConsoleLoggerProvider());
             loggerFactory.AddProvider(new RollingFileProvider(config));
             loggerFactory.AddProvider(new SmtpProvider(config));

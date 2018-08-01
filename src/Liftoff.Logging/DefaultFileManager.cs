@@ -1,27 +1,28 @@
 using System;
 using System.IO;
 
-namespace Liftoff.Logging {
-
-    public interface IManageFiles{
-
+namespace Liftoff.Logging
+{
+    public interface IManageFiles
+    {
         void WriteLine(string path, string text);
         void Move(string sourcePath, string destinationPath);
-        void Delete(string path);        
+        void Delete(string path);
         bool Exists(string path);
         DateTime GetLastWriteDate(string path);
     }
 
-    public class DefaultFileManager : IManageFiles {
-
+    public class DefaultFileManager : IManageFiles
+    {
         private static readonly Lazy<IManageFiles> InternalInstance = new Lazy<IManageFiles>(() => new DefaultFileManager());
         public static IManageFiles Instance => InternalInstance.Value;
 
-        private DefaultFileManager() {
+        private DefaultFileManager()
+        {
         }
 
-        public void WriteLine(string path, string text) {
-
+        public void WriteLine(string path, string text)
+        {
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
 
@@ -39,22 +40,25 @@ namespace Liftoff.Logging {
             File.AppendAllText(path, $"{text}\n");
         }
 
-        public void Move(string sourcePath, string destinationPath) {
+        public void Move(string sourcePath, string destinationPath)
+        {
             File.Move(sourcePath, destinationPath);
         }
 
-        public void Delete(string path) {
+        public void Delete(string path)
+        {
             File.Delete(path);
         }
 
-        public bool Exists(string path) {
+        public bool Exists(string path)
+        {
             return File.Exists(path);
-        }      
+        }
 
-        public DateTime GetLastWriteDate(string path) {          
-
+        public DateTime GetLastWriteDate(string path)
+        {
             DateTime lastWriteTime = File.GetLastWriteTime(path);
             return new DateTime(lastWriteTime.Year, lastWriteTime.Month, lastWriteTime.Day);
-        }  
+        }
     }
 }
