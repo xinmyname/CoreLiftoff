@@ -5,11 +5,11 @@ namespace Liftoff.Logging
 {
     public interface IManageFiles
     {
-        void WriteLine(string path, string text);
         void Move(string sourcePath, string destinationPath);
         void Delete(string path);
         bool Exists(string path);
         DateTime GetLastWriteDate(string path);
+        StreamWriter OpenStreamWriter(string path, FileAccess fileAccess, FileShare fileShare);
     }
 
     public class DefaultFileManager : IManageFiles
@@ -19,25 +19,6 @@ namespace Liftoff.Logging
 
         private DefaultFileManager()
         {
-        }
-
-        public void WriteLine(string path, string text)
-        {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
-
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
-
-            string folder = Path.GetDirectoryName(path);
-
-            if (folder == null)
-                throw new DirectoryNotFoundException($"Directory can't be extracted from '{path}'");
-
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
-
-            File.AppendAllText(path, $"{text}\n");
         }
 
         public void Move(string sourcePath, string destinationPath)
@@ -59,6 +40,21 @@ namespace Liftoff.Logging
         {
             DateTime lastWriteTime = File.GetLastWriteTime(path);
             return new DateTime(lastWriteTime.Year, lastWriteTime.Month, lastWriteTime.Day);
+        }
+
+        public StreamWriter OpenStreamWriter(string path, FileAccess fileAccess, FileShare fileShare)
+        {
+            string folder = Path.GetDirectoryName(path);
+
+            if (folder == null)
+                throw new DirectoryNotFoundException($"Directory can't be extracted from '{path}'");
+
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            var stream = new FileStream(path, FileMode.OpenOrCreate, fileAccess, fileShare);
+            stream.Seek(0, SeekOrigin.End);
+            return new StreamWriter(stream);
         }
     }
 }

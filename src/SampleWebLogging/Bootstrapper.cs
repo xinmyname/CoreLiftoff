@@ -1,7 +1,9 @@
-﻿using Liftoff.Config;
+﻿using System.IO;
+using Liftoff.Config;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Liftoff.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace SampleWebLogging
 {
@@ -9,13 +11,18 @@ namespace SampleWebLogging
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
 
-        private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            var hostBuilder = WebHost.CreateDefaultBuilder(args)
+                .UseConfiguration(configBuilder.Build())
                 .ConfigureAppConfiguration(configure => { configure.AddLiftoffSources(); })
                 .ConfigureLogging(configure => { configure.AddLiftoffProviders(); })
+                .UseHttpSys()
                 .UseStartup<Startup>();
+
+            hostBuilder.Build().Run();
+        }
     }
 }

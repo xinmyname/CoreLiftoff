@@ -1,42 +1,50 @@
 using System;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Liftoff.Logging
 {
     public class SmtpProvider : ILoggerProvider
     {
-        private readonly IConfiguration _config;
+        private readonly Lazy<ILogger> _lazyLogger;
 
         public SmtpProvider(IConfiguration config)
         {
-            _config = config;
+            _lazyLogger = new Lazy<ILogger>(() =>
+            {
+                string productName = config["assembly:product"];
+                string appName = config["assembly:name"];
+
+                string source = (productName == appName)
+                    ? productName
+                    : $"{productName} - {appName}";
+
+                string criticalErrorRecipient = config["criticalErrorRecipient"] ?? String.Empty;
+
+                var options = new SmtpOptions
+                {
+                    ComputerName = Environment.MachineName,
+                    Host = config["mail:host"],
+                    From = config["mail:from"],
+                    Recipients = criticalErrorRecipient.Split(';', ','),
+                    UserName = config["mail:username"],
+                    Password = config["mail:password"],
+                    UseDefaultCredentials = false,
+                    Source = source
+                };
+
+                if (String.IsNullOrEmpty(options.Host) || String.IsNullOrEmpty(options.From) || !options.Recipients.Any())
+                    return NullLogger.Instance;
+
+                return new SmtpLogger(new EmailSender(options), options);
+            });
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            string productName = _config["assembly:product"];
-            string appName = _config["assembly:name"];
-
-            string source = (productName == appName)
-                ? productName
-                : $"{productName} - {appName}";
-
-            string criticalErrorRecipient = _config["criticalErrorRecipient"] ?? String.Empty;
-
-            var options = new SmtpOptions
-            {
-                ComputerName = Environment.MachineName,
-                Host = _config["mail:host"],
-                From = _config["mail:from"],
-                Recipients = criticalErrorRecipient.Split(';', ','),
-                UserName = _config["mail:username"],
-                Password = _config["mail:password"],
-                UseDefaultCredentials = false,
-                Source = source
-            };
-
-            return new SmtpLogger(new EmailSender(options), options);
+            return _lazyLogger.Value;
         }
 
         public void Dispose()

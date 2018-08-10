@@ -8,41 +8,45 @@ namespace Liftoff.Logging
 {
     public class RollingFileProvider : ILoggerProvider
     {
-        private readonly IConfiguration _config;
+        private readonly Lazy<ILogger> _lazyLogger;
 
         public RollingFileProvider(IConfiguration config)
         {
-            _config = config;
+            _lazyLogger = new Lazy<ILogger>(() =>
+            {
+                string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Library/Logs";
+
+                string companyName = config["assembly:company"];
+                string productName = config["assembly:product"];
+                string appName = config["assembly:name"];
+
+                string logFilePath = Path.Combine(appDataFolder, companyName);
+                logFilePath = Path.Combine(logFilePath, productName);
+                logFilePath = Path.Combine(logFilePath, "log");
+                logFilePath = Path.Combine(logFilePath, $"{appName}.log");
+
+                var options = new RollingFileOptions
+                {
+                    LogFilePath = logFilePath,
+                    MaximumAgeInDays = 30
+                };
+
+                return new RollingFileLogger(DefaultTimeKeeper.Instance, DefaultFileManager.Instance, options);
+            });
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Library/Logs";
-
-            string companyName = _config["assembly:company"];
-            string productName = _config["assembly:product"];
-            string appName = _config["assembly:name"];
-
-            string logFilePath = Path.Combine(appDataFolder, companyName);
-            logFilePath = Path.Combine(logFilePath, productName);
-            logFilePath = Path.Combine(logFilePath, $"{appName}.log");
-
-            var options = new RollingFileOptions
-            {
-                LogFilePath = logFilePath,
-                MaximumAgeInDays = 30
-            };
-
-            return new RollingFileLogger(DefaultTimeKeeper.Instance, DefaultFileManager.Instance, options);
+            return _lazyLogger.Value;
         }
 
         public void Dispose()
         {
+            var logger = _lazyLogger.Value as RollingFileLogger;
+            logger?.Dispose();
         }
     }
 }
