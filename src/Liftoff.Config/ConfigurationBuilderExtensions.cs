@@ -5,11 +5,10 @@ namespace Liftoff.Config
 {
     public static class ConfigurationBuilderExtensions
     {
-
-        public static IConfigurationBuilder AddLiftoffSources(this IConfigurationBuilder builder)
+        public static IConfigurationBuilder AddLiftoffSources(this IConfigurationBuilder builder, string appSettingsPath = null)
         {
-            string appSettingsPath =
-                Path.Combine(Directory.GetCurrentDirectory(), ConfigurationDefaults.AppSettingsFilename());
+            if (appSettingsPath == null)
+                appSettingsPath = Path.Combine(ConfigurationDefaults.AppPath(), ConfigurationDefaults.AppSettingsFilename());
 
             if (File.Exists(appSettingsPath))
                 builder.AddJsonFile(appSettingsPath);
