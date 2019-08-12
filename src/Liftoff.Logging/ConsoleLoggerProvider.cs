@@ -5,11 +5,18 @@ namespace Liftoff.Logging
 {
     public class ConsoleLoggerProvider : ILoggerProvider
     {
-        private readonly Lazy<ILogger> _lazyLogger;
+        private static object _lazyLock = new object();
+        private static Lazy<ILogger> _lazyLogger;
 
         public ConsoleLoggerProvider()
         {
-            _lazyLogger = new Lazy<ILogger>(() => new ConsoleLogger());
+            lock (_lazyLock)
+            {
+                if (_lazyLogger != null)
+                    return;
+
+                _lazyLogger = new Lazy<ILogger>(() => new ConsoleLogger());
+            }
         }
 
         public void Dispose()
